@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>입력 양식 태그</title>
+</head>
+<body>
+    <h2>입력 양식 태그</h2>
+    <h3>input 태그</h3>
+    <p>사용자에게 값을 입력받을 수 있는 텍스트 상자 또는 체크 박스 등을 표시해주는 태그</p>
+    <!-- input 태그는 인라인 요소 -->
+    아이디 : <input type="text"> <br>
+    비밀번호 : <input type="password"> <br>
+    성별 : <input type="radio" name="gender"> 남자
+            <input type="radio" name="gender"> 여자 <br>
+    <input type="submit" value="회원가입">
+    <hr>
+    <h2>폼(form) 태그</h2>
+    <p>
+        폼 태그 내에 submit 버튼 클릭 시
+        해당 폼 태그 내에 작성된 <br>
+        사용자가 입력된 값들을 서버로 전달하면서 요청을 수행
+    </p>
+    <h4>속성</h4>
+    <ul>
+        <li>action : 요청할 서버 주소(경로)</li>
+        <li>method : 요청 전송 방식</li>
+            <ul>
+                <li>get 방식 : 요청 시 사용자가 입력한 값들이 URL에 노출되는 방식 (기본값)</li>
+                <li>post 방식 : 요청 시 사용자가 입력한 값들이 URL에 노출되지 않는 방식</li>
+            </ul>
+    </ul>
+    <form action="search" method="get">
+        검색어: <input type="text" name="keyword">
+        <input type="submit" value="검색">
+    </form>
+    <h3>유투브 검색</h3>
+    <form action="https://www.youtube.com/results" method="get">
+        검색어: <input type="text" name="search_query">
+        <input type="submit" value="검색" style="background-color: tomato;">
+    </form>
+    <h3>네이버 검색</h3>
+    <form action="https://search.naver.com/search.naver" method="get">
+        검색어: <input type="text" name="query">
+        <input type="submit" value="검색"
+            style = "background-color: yellowgreen;">
+    </form>
+    <br>
+    <h3>POST 방식 테스트</h3>
+    <form action="login" method="post">
+        <label>
+            아이디:
+            <input type="text" name="userId" placeholder="아이디 입력">
+        </label> <br>
+        <label>
+            비밀번호:
+            <input type="password" name="password" placeholder="비밀번호 입력">
+        </label><br>
+        <input type="submit" value="로그인">
+    </form>
+    <hr>
+    <h2>그 외의 입력 태그들</h2>
+    <form action="test" method="post">
+        <!-- radio : 동일한 name 속성을 가진 항목 중 단 한 가지만 선택하도록 강제함 -->
+        <p>성별</p>
+        <label>
+            <input type="radio" name="gender" value="남자" checked> 남자
+        </label>
+        <label>
+            <input type="radio" name="gender" value="여자"> 여자
+        </label>
+        <p>나이대</p>
+        <label>
+            <input type="radio" name="age" value="20" checked> 20대
+        </label>
+        <label>
+            <input type="radio" name="age" value="30"> 30대
+        </label>
+        <label>
+            <input type="radio" name="age" value="40"> 40대
+        </label>
+        <!-- checkbox : 동일한 name 속성을 가지고 여러 개를 선택할 수 있도록 하는 태그 -->
+        <p>취미 (중복 가능)</p>
+        <label>
+            <input type="checkbox" name="hobby" value="농구"> 농구
+        </label>
+        <label>
+            <input type="checkbox" name="hobby" value="야구"> 야구
+        </label>
+        <label>
+            <input type="checkbox" name="hobby" value="축구"> 축구
+        </label>
+
+        <!-- number : 숫자만 입력받도록 제한되는 타입 -->
+        <p>시험 점수</p>
+        <input type="number" name="score" min="0" max="100" step="5">
+        <!-- date : 캘린더 형태로 표시해주는 타입 (날짜 정보)-->
+        <p>생일</p>
+        <input type="date" name="birth">
+        <input type="time" name="birth">
+        <input type="datetime-local" name="birth">
+        
+        <hr>
+        <!-- textarea : 여러 줄 입력이 가능한 태그 -->
+        <p>주말 계획</p>
+        <textarea name="plan" rows="5" cols="30" style="resize: none;">전달될 내용</textarea>
+        
+        <br><br>
+        <input type="submit">
+    </form>
+    <br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>
