@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>레이아웃 실습 - KH 아카데미</title>
+
+    <!-- 폰트어썸 아이콘 CDN -->
+    <script src="https://kit.fontawesome.com/3dd9964fc0.js" crossorigin="anonymous"></script>
+
+    <!-- 외부 css 파일 연결 -->
+    <link rel="stylesheet" href="./styles/style.css">
+</head>
+
+<body>
+    <!-- 상단 영역 -->
+    <header>
+        <!-- 로고 / 검색창 / 로그인, 회원가입 버튼 -->
+        <!-- 로고 -->
+        <a href="#" class="logo">KH <span>아카데미</span></a>
+
+        <!-- 검색창 -->
+        <div class="search">
+            <input type="text" placeholder="과정을 검색하세요...">
+            <button class="btn">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div>
+
+        <!-- 버튼들 (로그인, 회원가입) -->
+        <div class="header-util">
+            <a href="#">로그인</a>
+            <a href="#">회원가입</a>
+        </div>
+
+    </header>
+    <!-- 메뉴 -->
+    <nav class="menu">
+        <ul>
+            <li>
+                <a href="#">교육과정</a>
+                <ul class="submenu">
+                    <li><a href="#">웹 개발자</a></li>
+                    <li><a href="#">보안 전문가</a></li>
+                    <li><a href="#">클라우드 엔지니어</a></li>
+                    <li><a href="#">데이터 분석가</a></li>
+                </ul>
+            </li>
+            <li><a href="#">교육원 소개</a></li>
+            <li><a href="#">취업지원</a></li>
+            <li><a href="#">산학연계</a></li>
+            <li><a href="#">상담센터</a></li>
+        </ul>
+    </nav>
+
+    <!-- 메인 영역 -->
+    <main>
+        <!-- 배너 / 공지 / 과정 정보 -->
+        <section>
+            <!-- 배너 영역 -->
+            <div class="banner">
+                <small>2026 HALF / 국비지원</small>
+                <h2>
+                    실무에서 바로 이어지는 개발자 부트캠프 모집!
+                </h2>
+                <p>
+                    현업 멘토와 함께하는 6개월 집중 과정 - 지금 신청하세요.
+                </p>
+            </div>
+
+            <!-- 공지 띠 영역 -->
+            <div class="notice">
+                <div>
+                    <span class="tag">공지</span>
+                    <span>7월 개강 과정 수강신청이 시작되었습니다.</span>
+                </div>
+                <a href="#" class="more">더 보기</a>
+            </div>
+
+            <!-- 개별 과정 카드 영역 -->
+            <div class="cards">
+                <article class="card">
+                    <div class="thumb"></div>
+                    <div class="body">
+                        <h3>웹 개발자</h3>
+                        <p>백엔드부터 프론트까지 한번에</p>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="thumb"></div>
+                    <div class="body">
+                        <h3>보안전문가</h3>
+                        <p>모의해킹, 네트워크 보안 기초</p>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="thumb"></div>
+                    <div class="body">
+                        <h3>클라우드 엔지니어</h3>
+                        <p>AWS, Docker, CI/CD 실습 중심</p>
+                    </div>
+                </article>
+            </div>
+
+        </section>
+
+        <!-- 로그인 폼 / 바로가기 링크 -->
+        <aside>
+            <!-- 로그인 폼 (상자) -->
+            <div class="login">
+                <h3>로그인</h3>
+
+                <input type="text" placeholder="아이디...">
+                <input type="password" placeholder="비밀번호...">
+                <button class="btn">로그인</button>
+
+                <div class="login-links">
+                    <a href="#">아이디 찾기</a>
+                    <a href="#">비밀번호 찾기</a>
+                    <a href="#">회원가입</a>
+                </div>
+            </div>
+
+            <!-- 바로가기 링크 모음 -->
+            <div class="quick">
+                <h3>바로가기</h3>
+                <ul>
+                    <li><a href="#">수강신청 안내 &rarr;</a></li>
+                    <li><a href="#">국비지원 자격여부 &rarr;</a></li>
+                    <li><a href="#">취업후기 보기 &rarr;</a></li>
+                    <li><a href="#">상담 예약 &rarr;</a></li>
+                </ul>
+            </div>
+        </aside>
+    </main>
+
+    <!-- 하단 영역 -->
+    <footer>
+        <!-- 하단 링크 -->
+        <div class="footer-links">
+            <a href="#">이용약관</a>
+            <a href="#">개인정보처리방침</a>
+            <a href="#">인재채용</a>
+            <a href="#">고객센터</a>
+        </div>
+
+        <!-- 지점 정보 -->
+        <div>
+            <p>강남점 1관 : 서울특별시 강남구 테헤란로14길 6 남도빌딩 2F, 3F, 4F, 5F, 6F</p>
+            <p>강남점 2관 : 서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F, 5F, 7F</p>
+        </div>
+
+        <!-- 저작권 정보 -->
+        <p class="copy">
+            Copyright &copy; KH Information Educational Institute All Right Reserved
+        </p>
+    </footer>
+</body>
+
+</html>

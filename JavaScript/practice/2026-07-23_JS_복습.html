@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript 복습 페이지</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dokdo&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Dokdo", system-ui;
+        }
+
+        html {
+            font-size: 24px;
+        }
+
+        body {
+            background-color: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .wrap {
+            background-color: white;
+            width: 90%;
+            max-width: 800px;
+            height: 80vh; 
+            
+            border-radius: 20px;
+            box-shadow: 0 10px 30px #0000001a;
+            
+            display: flex;
+            flex-direction: column;
+        }
+
+        .wrap > .btn-area {
+            background-color: white;
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn-area > .btn {
+            flex: 1;
+            max-width: 200px;
+            padding: 1rem 0;
+
+            background-color: #f1f3f5;
+            color: #495057;
+            border: 2px solid transparent; /* transparent: 색상을 투명하게 설정 / 2px 공간만 차지 */
+            border-radius: 12px;
+
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 500;
+            
+            transition: all 0.2s ease-in-out;   /* 0.2초 동안 부드럽게 변경 사항 반영 */
+        }
+
+        .btn-area > .btn:hover {
+            background-color: #e9ecef;
+            transform: translateY(-2px); /* 살짝 위로 뜨는 효과 (y축 기준 위쪽으로 이동) */
+        }
+
+        .btn-area > .btn:active {
+            transform: translateY(1px); /* 클릭 시 들어가는 효과 (y축 기준 아래쪽으로 이동) */
+        }
+
+        .show-area {
+            background-color: #f8f9fa;
+            flex: 1;
+
+            padding: 2rem;
+            display: flex;
+            flex-direction: column; 
+            justify-content: center;
+            align-items: center;
+            
+            border: none; 
+            transition: background-color 0.4s ease; /* 배경색 변경 시 부드럽게 반영 */
+        }
+
+        .show-area h2 {
+            font-size: 2rem;
+            color: #212529;
+            margin-bottom: 1rem;
+        }
+
+        .show-area p {
+            font-size: 1.1rem;
+            color: #868e96;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="btn-area">
+            <button id="btn1" class="btn">메시지 보기 1</button>
+            <button id="btn2" class="btn">메시지 보기 2</button>
+            <button id="btn3" class="btn">메시지 보기 3</button>
+        </div>
+
+        <div class="show-area">
+            <h2>재밌는 자바스크립트</h2>
+            <pre>
+ヽ○ノ　ヽ○ノ
+　/　　 　/
+ノ)　 　ノ)
+            </pre>
+        </div>
+    </div>
+
+    <script>
+        /* TODO: 아래 주석 내용을 작성해봅시다. */
+        const btn1 = document.getElementById("btn1")/* id명이 btn1인 요소 하나만 선택 */;
+        const btn2 = document.getElementById("btn2")/* id명이 btn2인 요소 하나만 선택 */;
+        const btn3 = document.getElementById("btn3")/* id명이 btn3인 요소 하나만 선택 */;
+        const showArea = document.getElementsByClassName("show-area")/* class명이 show-area인 요소 하나만 선택 */;
+
+        btn1.addEventListener('click', function() {
+            showArea.innerHTML = `
+                <h2>안녕하세요!</h2>
+                <p>첫 번째 버튼을 클릭했습니다.<br>배경색이 빨간색 톤으로 바뀝니다.</p>
+            `;
+            showArea.style.backgroundColor = '#fff5f5';
+        });
+
+        btn2.addEventListener('click', function() {
+            showArea.innerHTML = `
+                <h2>반갑습니다.</h2>
+                <p>두 번째 버튼을 클릭했습니다.<br>배경색이 초록색 톤으로 바뀝니다.</p>
+            `;
+            showArea.style.backgroundColor = '#ebfbee';
+        });
+
+        btn3.addEventListener('click', function() {
+            showArea.innerHTML = `
+                <h2>환영합니다!</h2>
+                <p>세 번째 버튼을 클릭했습니다.<br>배경색이 파란색 톤으로 바뀝니다.</p>
+            `;
+            showArea.style.backgroundColor = '#e7f5ff';
+        });
+    </script>
+</body>
+</html>
