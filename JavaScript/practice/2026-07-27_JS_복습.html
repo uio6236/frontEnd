@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>회원 목록 관리</title>
+<style>
+    body {
+      max-width: 400px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #333;
+      font-size: 1.25rem;
+    }
+
+    h3 {
+      margin-top: 24px;
+      color: #555;
+      font-size: 1rem;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 0.95rem;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #4a90e2;
+    }
+
+    button {
+      padding: 8px 16px;
+      background-color: #4a90e2;
+      color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    button:hover {
+      background-color: #357abd;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 12px 0 0 0;
+    }
+
+    li {
+      padding: 8px 12px;
+      background-color: #ffffff;
+      border: 1px solid #eee;
+      border-radius: 4px;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+  </style>  
+</head>
+<body>
+  <h2>신규 회원 등록</h2>
+  <input type="text" id="username" placeholder="이름을 입력하세요">
+  <button id="add-btn">등록</button>
+
+  <h3>회원 명단</h3>
+  <ul id="user-list">
+    <li>홍길동</li>
+  </ul>
+
+  <script>
+    const nameInput = document.querySelector('#username');
+    const addBtn = document.querySelector('#add-btn');
+    const userList = document.querySelector('#user-list');
+
+    addBtn.addEventListener('click', () => {
+      const nameText = nameInput.value.trim();
+
+      if (nameText === '') {
+        alert('이름을 입력해주세요.');
+        return;
+      }
+
+      // TODO: 아래 빈칸을 채워봅시다.
+      // (1) 새로운 li 요소 생성
+      const newLi = document.createElement('li');
+      
+      // (2) li 요소에 텍스트 설정
+      newLi.textContent= nameText;
+
+      // (3) ul 태그 하위에 생성한 li 추가
+      userList.appendChild(newLi);
+
+      // (4) 입력창 초기화
+      nameInput.value = '';
+    });
+  </script>
+</body>
+</html>

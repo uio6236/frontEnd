@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>웹 스토리지</title>
+
+    <style>
+        .area {
+            border: 10px groove slateblue;
+            width: 300px;
+            min-height: 50px;
+            padding: 8px;  /* 상하좌우 모두 8px */
+            margin: 8px 0; /* 상하 8px 좌우 0 */
+        }
+    </style>
+
+</head>
+<body>
+    <h1>웹 스토리지</h1>
+    <p>
+        브라우저 내부에 데이터를 키-값(key-value) 쌍으로 저장하는 공간 <br>
+        - localStorage : 영구 저장. (브라우저나 탭을 닫아도 데이터가 유지됨) <br>
+        - sessionStorage : 탭 단위 저장. (해당 탭을 닫으면 데이터가 삭제됨) <br>
+        <br>
+        주요 메소드: setItem(key, value), getItem(key), removeItem(key), clear() <br>
+        [참고] 웹 스토리지는 "문자열" 형태의 데이터만 저장할 수 있음
+    </p>
+
+    <h3>localStorage</h3>
+    <p>
+        브라우저를 닫거나 다시 열어도 유지되어야 하는 데이터에 사용 <br>
+        - 사용자 설정: 다크모드/라이트모드, 언어 설정 등 <br>
+        - 비회원 장바구니: 로그인 전 장바구니 데이터를 임시 보관 <br>
+        - 오늘 하루 이 창 보지 않기: 팝업창 만료 시간 및 상태 저장
+    </p>
+
+    <input type="text" id="memo">
+    <button onclick="saveMemo();">저장</button>
+    <button onclick="loadMemo();">조회</button>
+    <button onclick="removeMemo();">삭제</button>
+    <div class="area" id="area1"></div>
+
+    <script>
+        function saveMemo() {
+            // 입력된 값을 로컬스토리지에 저장 (key: memo, value: 입력된값)
+            const memoValue = document.getElementById("memo").value;
+
+            localStorage.setItem("memo", memoValue);
+
+            // #area1 영역에 "저장 완료" 출력
+            document.getElementById("area1").textContent = "저장 완료!";
+        }
+
+        function loadMemo() {
+            // 로컬 스토리지에 저장된 값을 조회
+            const value = localStorage.getItem("memo");
+
+            // #area1 영역에 출력
+            //      - 저장된 값이 있으면 "조회결과: XXX" 
+            //      - 저장된 값이 없으면 "저장된 값이 없습니다." -> null
+            const area1 = document.getElementById("area1");
+
+            if (value != null) {
+                area1.textContent = "조회결과: " + value;
+            } else {
+                area1.textContent = "저장된 값이 없습니다.";
+            }
+        }
+
+        function removeMemo() {
+            // 로컬 스토리지에서 "memo"에 해당하는 값을 제거
+            localStorage.removeItem("memo");
+
+            // #area1 영역에 "삭제 완료" 출력
+            document.getElementById("area1").textContent = "삭제 완료";
+        }
+    </script>
+
+    <h3>sessionStorage</h3>
+    <p>
+        데이터가 영구적으로 남으면 안 되거나, 현재 탭이 유지되는 동안만 일시적으로 보관할 때 사용 <br>
+        - 작성 폼 백업: 게시글 작성 중 실수로 새로고침을 해도 작성 중인 내용 유지 <br>
+        - 목록 상태 유지: 상품 목록 스크롤 위치 및 필터 조건을 유지하면서, 상세 페이지에서 돌아왔을 때 복원
+    </p>
+    <button onclick="saveMemo2();">저장</button>
+    <button onclick="loadMemo2();">조회</button>
+    <div class="area" id="area2"></div>
+
+    <script>
+        // 세션스토리지도 로컬스토리지와 동일한 API 메소드를 사용
+        // * 저장 : setItem(key, value)
+        // * 조회 : getItem(key)
+        // * 삭제 : removeItem(key)
+        function saveMemo2() {
+            sessionStorage.setItem("memo2", "햄버거");
+
+            document.getElementById("area2").textContent = "저장완료";
+        }
+
+        function loadMemo2() {
+            document.getElementById("area2").textContent = sessionStorage.getItem("memo2");
+        }
+
+    </script>
+
+    <h3>전체 비우기 (clear)</h3>
+    <button onclick="localStorage.clear();">로컬 스토리지 비우기</button>
+    <button onclick="sessionStorage.clear();">세션 스토리지 비우기</button>
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

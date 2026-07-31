@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS 테이터 입출력</title>
+    <style>
+        .area {
+            border: 1px solid green;
+            width: 300px;
+            min-height: 50px;
+            padding: 8px;
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <h2>자바스크립트 기본 객체</h2>
+    <ul>
+        <li>window: 브라우저 창마다 생성되는 최상위 객체 
+                    (window.함수 사용 시 window. 생략 가능)</li>
+        <li>document: window.document / 
+                    현재 브라우저에 표시된 DOM을 관리하는 객체</li>
+    </ul>
+    <hr>
+    <h1>데이터 입출력</h1>
+    <h2>데이터 출력 메소드</h2>
+    <p>
+        출력 방식: alert / console.log / document.write
+    </p>
+    <button onclick="outputTest();">문서에 출력하기</button>
+    <script>
+        function outputTest() {
+            document.write("<h1>점심 메뉴: 햄버거, 덮밥, 김밥 등등...</h1>");
+            // => 기존 HTML 문서 전체를 덮어씌움 (사용 지양..)
+        }
+    </script>
+
+    <h3>특정 DOM 요소에 데이터 출력</h3>
+    <p>
+        출력 방식: innerHTML / innerText / textContent
+    </p>
+    <div id="area1" class="area">기존 내용</div>
+    <button onclick="innerHTMLTest();">innerHTML 사용</button>
+    <button onclick="innerTextTest();">innerText 사용</button>
+    <button onclick="textContentTest();">textContent 사용</button>
+    <script>
+        function innerHTMLTest() {
+            // * 출력 위치 : div
+            const area1 = document.getElementById("area1");
+            area1.innerHTML = "<h3> 내용 변경!! </h3> <h4>테스트</h4>";
+            // => 지정한 요소 내부에 HTML 태그를 해석하여 출력(삽입)
+            //    외부 사용자의 입력을 직접 넣게 되는 경우 
+            //    XSS(교차 사이트 스크립팅) 공격 위험이 있으므로 주의해야 함
+            console.log(area1.innerText);
+            console.log(area1.textContent);
+            /*
+                * innerText vs textContent
+                - innerText: 내용에 포함된 태그가 해석된 형태로, 
+                                실제 사용자가 보는 텍스트를 가져옴
+                - textContent: 내용에 포함된 태그가 해석되지 않고, 
+                                모든 텍스트를 그 자체로 가져옴.
+            */
+        }
+        function innerTextTest() {
+            // * 출력 위치 : div#area1
+            const area1 = document.getElementById("area1");
+            area1.innerText = "<h3> 내용 변경!! </h3>";
+            console.log(area1.innerText);
+        }
+        function textContentTest() {
+            // * 출력 위치 : div#area1
+            const area1 = document.getElementById("area1");
+            area1.textContent = "<h3> 내용 변경!! </h3>";
+            console.log(area1.textContent);
+        }
+    </script>
+
+    <h2>데이터 입력 메소드</h2>
+    <p>
+        prompt("메시지"): 사용자에게 메시지와 함께 입력창을 가지고 있는 창을 표환 <br>
+        - [확인] 클릭 시: 입력된 값(문자열) 반환 <br>
+        - [취소] 클릭 시: null 반환
+    </p>
+    <button onclick="promptTest();">입력 받기</button>
+    <div class="area" id="area2"></div>
+    <script>
+        function promptTest() {
+            const name = prompt("이름을 입력하세요. ");
+            const age = prompt("나이를 입력하세요. ");
+            // * div 영역에 입력받은 값을 출력
+            const area2 = document.querySelector("#area2");
+            // 이름 또는 나이가 null일 경우
+            // "입력이 취소되었습니다." 출력
+            if (name == null || age == null) {
+                area2.textContent = "입력이 취소되었습니다.";
+                return;
+            }
+            // area2.textContent = "이름: " + name + ", 나이: " + age;
+            area2.textContent = `이름: ${name}, 나이: ${age}`;
+        }
+    </script>
+    
+    <h4>input 요소의 value 읽기</h4>
+    아이디: <input type="text" id="userId"> <br>
+    비밀번호: <input type="password" id="userPwd"> <br>
+    <button onclick="inputTest();">입력값 확인</button>
+    <div class="area" id="area3"></div>
+    
+    <script>
+        function inputTest() {
+            // 아이디 입력 요소(#userId) 선택
+            const idEle = document.querySelector("#userId");
+            // 비밀번호 입력 요소(#userPwd) 선택
+            const pwdEle = document.querySelector("#userPwd");
+            // 각 입력 요소의 입력된 값(value)
+            const id = idEle.value;
+            const pwd = pwdEle.value;
+            // 입력된 값을 #area3 영역에 출력
+            document.querySelector("#area3").textContent = `아이디: ${id}, 비밀번호: ${pwd}`;
+            
+        }
+    </script>
+
+    <h2>동적 이미지 출력</h2>
+    <button onclick="showImage();">이미지 출력</button>
+    <div class="area" id="imgArea"></div>
+    <script>
+        function showImage() {
+            // innerHTML 을 사용하여 img 태그를 추가(출력)
+            document.querySelector("#imgArea").innerHTML = 
+            `<img src="../public/베이크 치즈타르트.jpg" alt="테스트 이미지" width= "100px";>`;
+        }
+    </script>
+
+    <br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

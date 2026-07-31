@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM 요소 조작</title>
+    <style>
+        .area {
+            border: 1px dotted green;
+            width: 300px;
+            min-height: 50px;
+            padding: 8px;
+            margin: 8px 0;
+        }
+        .active {
+            background-color: lightgreen;
+        }
+        .on {
+            font-weight: bold;
+            color: whitesmoke;
+        }
+    </style>
+</head>
+<body>
+    <h1>DOM 요소 조작</h1>
+    <h3>속성과 스타일 변경</h3>
+    <div id="box" class="area">Box 영역</div>
+    <button onclick="change();">변경</button>
+    <script>
+        function change() {
+            // Box 영역의 글자 색을 푸른색으로 변경
+            //           배경 색을 회색으로 변경
+            const box = document.querySelector("#box");
+            box.style.color = "aqua";
+            box.style.backgroundColor = "lightgray";
+
+            // 특정 속성도 변경
+            // * data-___ : 사용자 정의 속성
+            box.setAttribute('data-role', 'admin');
+            // setAttribute(속성명, 속성값)
+            // * 속성의 값 확인
+            // - 현재 배경색 확인
+            console.log(box.style.backgroundColor);
+            // - "data-role" 속성값 확인
+            console.log(box.getAttribute('data-role'));
+        }
+    </script>
+    <h3>classList 를 사용하여 제어</h3>
+    <div class="area" id="classBox">classBox 영역</div>
+    <button onclick="addAndRemove('add');">add</button>
+    <button onclick="addAndRemove('remove');">remove</button>
+    <button onclick="toggle();">toggle</button>
+    <button onclick="toggle();">check</button>
+    <script>
+        function addAndRemove(type) {
+            console.log(type);
+            // classBox 영역에 해당하는 요소 선택
+            const box = document.querySelector("#classBox");
+            // type 값이 'add' 일 경우 'active' 클래스 추가
+            //          'remove' 일 경우 'active' 클래스 제거
+            switch (type) {
+                case 'add':
+                    box.classList.add('active');
+                    break;
+                case 'remove':
+                    box.classList.remove('active');
+                    break;
+            }
+            // classList 목록 확인
+            console.log(box.classList);
+            // class 전체 문자열 확인
+            console.log(box.className);
+        }
+        function toggle() {
+            // toggle => add + remove
+            //          없으면 추가, 있으면 제거
+            const box = document.querySelector("#classBox");
+            box.classList.toggle('active');
+        }
+        function checkClass() {
+            // contains : 해당 클래스가 존재하는지 여부를 반환
+            const box = document.querySelector("#classBox");
+            const hasActive = box.classList.contains('active');
+            console.log("active 클래스 존재여부" + hasActive);
+            if (hasActive) {
+                alert('active 클래스 존재(확인)');
+            }
+        }
+    </script>
+
+    <h3>요소(노드) 생성, 추가, 제거</h3>
+    <div class= 'area'. id="wrap"></div>
+    <button onclick="addElement();">요소 추가</button>
+    <button onclick="removeLast();">마지막 요소 제거</button>
+    <button onclick="removeAll();">내부 요소 모두 제거</button>
+    <script>
+        function addElement() {
+            // 새로운 DOM 요소 생성 : h6
+            // document.createElement(태그명)
+            const h6Ele = document.createElement("h6");
+            h6Ele.textContent = "추가된 요소";
+            // 대상 지정: #wrap
+            const wrap = document.querySelector("#wrap");
+            // 보모 요소(#wrap)의 마지막 위치에 생성한 DOM 요소 추가
+            // * 대상.appendChild(추가할요소)
+            wrap.appendChild(h6Ele);
+        }
+        function removeAll() {
+            const wrap = document.querySelector("#wrap");
+            wrap.textContent = "";
+            // => #wrap 요소 내부의 텍스트 및 자식 요소를 모두 ""으로 변경(모두 삭제)
+        }
+        function removeLast() {
+            // #wrap 인 요소 내에 있는 h6 태그 모두 선택
+            // => querySelectorAll
+            const h6List = document.querySelectorAll("#wrap h6");
+            if (h6List.length > 0) {
+                // 추가된 요소가 있는 경우
+                // 마지막 위치의 요소.remove();
+                h6List[h6List.length - 1].remove();
+            } else {
+                // 추가된 요소가 없는 경우
+                alert("삭제할 항목이 없습니다.");
+            }
+        }
+    </script>
+</body>
+</html>

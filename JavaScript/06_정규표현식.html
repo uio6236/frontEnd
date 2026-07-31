@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정규표현식 연습</title>
+
+    <style>
+        .area {
+            border: 2px dotted #850505;
+            width: 300px;
+            min-height: 50px;
+            padding: 8px;  /* 상하좌우 모두 8px */
+            margin: 8px 0; /* 상하 8px 좌우 0 */
+        }
+
+        .good {
+            color: green;
+            font-weight: bold;
+        }
+        .bad {
+            color: red;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>정규 표현식 (Regular Expression)</h1>
+    <p>
+        문자열에서 특정 규칙을 가진 패턴을
+        찾고, 검사하고, 치환하는 데 사용되는 표현 방식
+    </p>
+
+    <h3>메소드 : test / exec</h3>
+    <button onclick="test1();">실행</button>
+    <div class="area" id="area1"></div>
+
+    <script>
+        function test1() {
+            // 출력 대상: #area1
+            const area1 = document.querySelector("#area1");
+
+            // 임의의 문자열 저장
+            const str = "javascript jquery";
+
+            // 정규표현식 객체 생성 방식 (2가지)
+            // [1] 생성자 함수 사용 (자바의 객체 생성 방식과 유사)
+            const regExp1 = new RegExp("script");
+
+            // [2] 정규식 리터럴 사용 (주로 많이 사용됨)
+            const regExp2 = /script/;
+
+            // * 정규식객체.test(문자열) : 패턴과 일치하는 문자가 포함되어 있으면 true, 없으면 false 리턴
+            area1.innerHTML = `test결과: ${ regExp2.test(str) } <br>`;
+            area1.innerHTML += `test결과: ${ regExp2.test("java python") } <br>`;
+
+            // * 정규식객체.exec(문자열) : 패턴과 일치하는 첫 번째 결과를 배열로 반환, 없으면 null 반환
+            area1.innerHTML += `exec 결과: ${ regExp2.exec(str) } <br>`;
+            area1.innerHTML += `exec 결과: ${ regExp2.exec("java python") } <br>`;
+
+            console.log( regExp2.exec(str) ); // exec 결과 구조 확인
+        }
+    </script>
+
+    <h3>메타문자와 수량자</h3>
+    <button onclick="test2();">실행</button>
+    <div class="area" id="area2"></div>
+
+    <script>
+        function test2() {
+            const area2 = document.querySelector("#area2");
+
+            // * 메타 문자
+            //   ^ : 시작 문자 지정
+            //   $ : 끝 문자 지정
+            area2.innerHTML = `j로 시작되는지? ${ /^j/.test("javascript") } <br>`;
+            area2.innerHTML += `j로 시작되는지? ${ /^j/.test("python") } <br>`;
+
+            area2.innerHTML += `t로 끝나는지? ${ /t$/.test("javascript") } <br>`;
+            area2.innerHTML += `t로 끝나는지? ${ /t$/.test("python") } <br>`;
+
+            //   [a-z] : 알파벳 소문자
+            //   [A-Z] : 알파벳 대문자
+            //   [0-9] : 숫자
+
+            // 문자열.replace(기준, 변경)
+            area2.innerHTML += `특정 패턴 변경: ${ "a1b2c3".replace(/[0-9]/g, '*') } <br>`;
+            //   /패턴/g => 플래그 g : 전역(global)
+        }
+    </script>
+
+    <h4>아이디 검증</h4>
+    <p>영문 (대문자, 소문자), 숫자를 포함하여 5~12자리</p>
+
+    <label>
+        아이디: 
+        <input type="text" id="userId" placeholder="5 ~ 12자 영문/숫자">
+    </label>
+    <button onclick="checkId();">검증</button>
+    <div class="area" id="area3"></div>
+
+    <script>
+        function checkId() {
+
+            // * 수량자
+            //   {n, m} : 최소 n개 이상 최대 m개 이하 개수 지정
+            const idRegExp = /^[a-zA-Z0-9]{5,12}$/;       // 영문(소문자,대문자), 숫자 5~12자
+
+            // * 검증 대상 => 입력된 아이디 값
+            const idValue = document.querySelector("#userId").value;
+
+            // 확인용 출력: #area3 영역에 
+            //              유효한 아이디값이면 "사용 가능" 출력
+            //              패턴에 해당되지 않으면 "사용 불가" 출력
+            const area3 = document.querySelector("#area3");
+
+            if ( idRegExp.test(idValue) ) {
+                // 유효한 아이디인 경우
+                area3.innerHTML = "<span class='good'>사용 가능!</span>";
+            } else {
+                // 유효하지 않은 아이디인 경우
+                area3.innerHTML = "<span class='bad'>사용 불가;-;</span>";
+            }
+
+        }
+    </script>
+
+    <!-- h3+(label>input:text)+button+.area#area4 -->
+    <h3>이메일 검증</h3>
+    <label>
+        이메일: 
+        <input type="text" id="email" placeholder="example@gmail.com">
+    </label>
+    <button onclick="checkEmail();">검증</button>
+    <div class="area" id="area4"></div>
+
+    <script>
+        function checkEmail() {
+            // sjlim.iei.26 / sjlim-23 / sjlim_23
+            const emailRegExp = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._]+\.[a-zA-Z]{2,}$/;
+            // . 기호는 [] 바깥에서는 임의의 문자를 의미하므로, 
+            //  기호 자체로 사용하기 위해서는 \. 으로 표현해야 함
+
+            const area4 = document.querySelector("#area4");
+            const emailValue = document.querySelector("#email").value;
+
+            if ( emailRegExp.test(emailValue) ) {
+                area4.innerHTML = "<span class='good'>올바른 이메일 형식</span>";
+            } else {
+                area4.innerHTML = "<span class='bad'>이메일 형식이 아님</span>";
+            }
+        }
+    </script>
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

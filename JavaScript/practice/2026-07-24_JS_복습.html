@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS 복습 페이지</title>
+
+    <style>
+        * { margin:0; padding: 0; box-sizing: border-box;}
+        .wrap {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* 상단 버튼 및 상태창 스타일 */
+        .control-area {
+            margin: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .reset-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: steelblue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .reset-btn:hover {
+            background-color: darkblue;
+        }
+
+        .status-msg {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* 카드 영역 스타일 */
+        .card-area {
+            margin: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+
+        .card {
+            min-width: 100px;
+            height: 28vh;            
+
+            /* 카드 안의 텍스트 중앙 정렬 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            background-color: white;
+            border: 3px solid #ddd;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            background-color: white;
+            border-color: steelblue;
+            color: steelblue;
+
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.15);
+        }
+
+        /* 카드가 선택되었을 때 적용할 클래스 */
+        .card.active {
+            background-color: steelblue;
+            border-color: darkblue;
+            color: white;
+
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrap">
+
+        <!-- 버튼 및 상태 메시지 영역 -->
+        <div class="control-area">
+            <button id="reset-btn" class="reset-btn" onclick="btn();">모두 초기화</button>
+            <p id="status" class="status-msg">선택된 카드가 없습니다.</p>
+        </div>
+
+        <!-- 카드 목록 -->
+        <div class="card-area">
+            <div class="card">1번 카드</div>
+            <div class="card">2번 카드</div>
+            <div class="card">3번 카드</div>
+            <div class="card">4번 카드</div>
+            <div class="card">5번 카드</div>
+            <div class="card">6번 카드</div>
+            <div class="card">7번 카드</div>
+            <div class="card">8번 카드</div>
+            <div class="card">9번 카드</div>
+        </div>
+    </div>
+
+    <script>
+        // TODO: 자바스크립트 코드를 여기에 작성해보세요!
+        // ==========================================================
+        // * 요구 사항 *
+        // - 클릭한 카드에 active 클래스를 추가 (기존에 있으면 제거)
+        // - 상단 status 영역에 클릭된 카드 번호를 출력
+        // - 초기화 버튼 클릭 시 모든 카드의 active 클래스를 제거하고 
+        //   메시지를 "선택된 카드가 없습니다."로 초기화
+        // ==========================================================
+        const cardList = document.querySelectorAll(".card-area .card");
+        cardList.forEach(function(item, index) {
+            item.onclick = function () { 
+                item.classList.toggle('active');
+                document.getElementById('status').textContent = `${item.textContent} 선택!`
+            }
+        });
+        document.getElementById('reset-btn').onclick = function() {
+            document.querySelectorAll(".card-area .card").forEach(function(item) {
+                item.classList.remove('active')
+            })
+            document.getElementById('status').textContent = '선택된 카드가 없습니다.';
+        }
+    </script>
+</body>
+</html>

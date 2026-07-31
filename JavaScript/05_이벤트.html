@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS 이벤트</title>
+
+    <style>
+        /* 
+            area 클래스에 스타일 추가 
+            - 테두리 : 1px, solid, 원하는색상
+            - 가로 : 300px
+            - 최소 높이 : 50px
+            - 안쪽 여백 : 8px
+            - 바깥쪽 여백 : 상하 8px 좌우 0
+        */
+        .area {
+            border: 1px solid seagreen;
+            width: 300px;
+            min-height: 50px;
+            padding: 8px;  /* 상하좌우 모두 8px */
+            margin: 8px 0; /* 상하 8px 좌우 0 */
+        }
+    </style>
+</head>
+<body>
+    <h1>자바스크립트 이벤트</h1>
+    <p>
+        * 이벤트 : 브라우저에서 발생하는 사용자의 동작이나 상태 변화를 의미함
+                  (click, keydown, keyup, drag, submit, load 등) <br>
+        * 이벤트 핸들러 : 특정 이벤트가 발생했을 때 실행되는 콜백 함수
+    </p>
+
+    <h3>[1] 고전 이벤트 모델</h3>
+    <b>element.onclick = 함수</b>
+    <p>
+        동일한 이벤트에 하나의 핸들러만 등록 가능 (덮어씀).
+        onclick = null 로 제거 가능.
+    </p>
+
+    <button id="btn1">실행</button>
+    <button id="btn2">이벤트 제거</button>
+    <div class="area" id="area1"></div>
+
+    <script>
+        // 3개 요소 (#btn1, #btn2, #area1)를 선택
+        const btn1 = document.querySelector("#btn1");
+        const btn2 = document.querySelector("#btn2");
+        const area1 = document.querySelector("#area1");
+
+        // console.log(btn1, btn2, area1);
+
+        // [실행] 버튼에 이벤트 핸들러 등록
+        btn1.onclick = function() {
+
+            // #area1 영역에 내용을 추가
+            area1.innerHTML += "[실행] 버튼이 클릭됨 <br>";
+
+        }
+
+        // [이벤트 제거] 버튼에 이벤트 핸들러 등록
+        btn2.onclick = function() {
+
+            // [실행] 버튼의 이벤트 핸들러 제거
+            btn1.onclick = null;
+
+            // #area1 영역에 내용을 추가
+            area1.innerHTML += "[실행] 버튼의 이벤트가 제거됨 <br>";
+        }
+
+    </script>
+
+    <h3>표준 이벤트 모델</h3>
+    <h4>element.addEventListener(이벤트명, 핸들러)</h4>
+    <p>
+        동일한 이벤트에 여러 핸들러 등록 가능.
+        removeEventListener() 로 특정 핸들러 제거 가능
+    </p>
+
+    <button id="btn3">실행</button>
+    <div class="area" id="area2"></div>
+
+    <script>
+        const btn3 = document.getElementById("btn3");
+        const area2 = document.getElementById("area2");
+
+        // 이벤트 핸들러 함수 정의
+        function handler1() {
+            // #area2 영역에 내용을 추가
+            area2.innerHTML += "핸들러1 함수 실행 <br>";
+        }
+
+        function handler2() {
+            // #area2 영역에 내용 추가
+            area2.innerHTML += "핸들러2 함수 실행 <br>";
+        }
+
+        // [실행] 버튼 클릭 이벤트 핸들러 등록
+        btn3.addEventListener('click', handler1);
+        btn3.addEventListener('click', handler2);
+
+        // [실행] 버튼에 등록된 이벤트 핸들러 제거
+        //  => handler1 함수 제거
+        btn3.removeEventListener('click', handler1);
+        // => 핸들러 제거 시, 등록할 때 전달한 함수와 "동일한 메모리 주소"를 전달해야 함!
+
+        // * 익명 화살표 함수 : () => {}
+        //    -> 매번 새로운 메모리 객체를 생성하므로 핸들러 제거 불가
+
+        // 마우스 진입 이벤트 : mouseenter
+        btn3.addEventListener('mouseenter', () => { 
+            console.log("마우스 진입! (추가)"); 
+        });
+        btn3.removeEventListener('mouseenter', () => { 
+            console.log("마우스 진입! (추가)"); 
+        }); // => 제거되지 않음!
+    </script>
+
+    <h3>event 객체</h3>
+    <h4>target / currentTarget</h4>
+
+    <button id="btn4">
+        <span>버튼 안의 span</span>
+    </button>
+    <div class="area" id="area3"></div>
+
+    <script>
+        const btn4 = document.querySelector("#btn4");
+/*
+        btn4.addEventListener("click", function(event) {
+            console.log( event.target );
+            console.log( event.currentTarget );
+
+            
+            // * event.target : 실제로 이벤트가 시작된 최하위 요소 (클릭된 실제 대상)
+            // * event.currentTarget : 이벤트 핸들러가 등록된 요소 (버튼)
+            
+           console.log(this);
+           // => 일반 함수에서의 대상. 
+           //    이벤트 핸들러로 등록되는 함수에서는 currentTarget과 같이 핸들러가 등록된 대상
+
+        });
+*/
+        btn4.addEventListener("click", (event)=>{
+            console.log( event.target );
+            console.log( event.currentTarget );
+            console.log( this );
+            // => 화살표 함수에서 this 사용했을 경우,
+            //      window 객체를 가리킴... 
+            //    이벤트 핸들러가 등록된 대상을 가리키고자 할 경우, currentTarget을 사용!
+
+
+            document.querySelector("#area3").textContent = 
+                        `target: ${event.target.tagName} / currentTarget: ${event.currentTarget.tagName}`;
+        });
+
+    </script>
+
+    <h3>기본 동작 막기</h3>
+    <h4>event.preventDefault</h4>
+
+    <form id="my-form">
+        <input type="text" placeholder="아이디 입력...">
+        <button type="submit">제출</button>
+    </form>
+    <div class="area" id="area4"></div>
+
+    <script>
+        // 대상: form 태그
+        const myForm = document.getElementById('my-form');
+
+        // 폼 전송 이벤트 : submit
+        myForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            // => 기본 동작을 중단시킴(막기)
+
+            document.getElementById("area4").textContent = 
+                "폼 제출 이벤트 감지 (새로고침 방지!)";
+        });
+
+
+    </script>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

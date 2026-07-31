@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM 요소 접근</title>
+    <style>
+        .area {
+            border: 1px dotted green;
+            width: 300px;
+            min-height: 50px;
+            padding: 8px;
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>DOM 요소에 접근하기</h1>
+    <h3>아이디로 접근 - getElementById(아이디명)</h3>
+    <div class="area" id="area1"></div>
+    <button onclick="accessId();">아이디로 접근</button>
+
+    <script>
+        function accessId() {
+            // 아이디명이 area1인 요소 접근
+            const area1 = document.getElementById("area1");
+            // 접근을 정상적으로 했을 경우, 해당 객체를 통해 조작 가능
+            area1.textContent = "아이디로 정상 접근!";
+            area1.style.backgroundColor = "lightgreen";
+        }
+    </script>
+    <h3>태그명으로 접근 - getElementByTagName(태그명)</h3>
+    <ul>
+        <li>li 태그 내용</li>
+        <li>li 태그 내용</li>
+        <li>li 태그 내용</li>
+    </ul>
+    <button onclick="accessTag();">태그로 접근</button>
+    <script>
+        function accessTag() {
+            // 태그명이 li인 모든 요소 접근 => HTMLCollection 형태로 반환
+            const liList = document.getElementsByTagName("li");
+            // * 요소 개수: .length
+            console.log(`li 요소 개수: ${liList.length}`);
+            // for(초기식; 조건식; 증감식) {반복 내용}
+            for (let i = 0; i < liList.length; i++) {
+                // li 태그 내용 변경 => {i}번째 li
+                liList[i].textContent = `${i} + 번째 li`;
+                console.log(liList[i].textContent);
+            }
+        }
+    </script>
+    <h3>
+        CSS 선택자로 접근
+        - querySelector / querySelectorAll
+    </h3>
+    <div id="area2">점심메뉴: 버거킹 치킨킹</div>
+    <p class="item">아이템 A</p>
+    <p class="item">아이템 B</p>
+    <p class="item">아이템 C</p>
+    <button onclick="accessSelector();">선택자로 접근</button>
+    <script>
+        function accessSelector() {
+            // #area2 요소 선택
+            const one = document.querySelector("#area2");
+            console.log(one);
+            // 글자를 굵게 표현 : font-weight
+            one.style.fontWeight = "bold";
+            // => 해당하는 요소가 있을 경우 1개의 객체를 반환
+            //                  없을 경우 null 을 반환
+
+            // .item 요소들 선택
+            const all = document.querySelectorAll(".item");
+            console.log(all);
+            // => 해당하는 요소들이 있으면 NodeList 형태로 반환 (개수가 1개 이상)
+            //                    없으면 NodeList 형태로 반환 (개수가 0개)
+
+            // * NodeList는 forEach 메소드를 사용할 수 있음
+            all.forEach(function(item, index) {
+                // 각 요소의 글자 색 변경
+                item.style.color = "red";
+            });
+        }
+    </script>
+
+
+
+
+    <br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

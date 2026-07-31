@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>window 객체</title>
+
+    <style>
+        .area {
+            border: 5px double crimson;
+            width: 300px;
+            min-height: 50px;
+            padding: 8px;  /* 상하좌우 모두 8px */
+            margin: 8px 0; /* 상하 8px 좌우 0 */
+        }        
+    </style>
+</head>
+<body>
+    <h1>window 객체</h1>
+    <p>
+        자바스크립트의 최상위 객체로, 브라우저 창을 제어 <br>
+        document 외에도 location, screen, navigator, history 등의 객체를 포함
+    </p>
+
+    <h3>타이머 함수 (setTimeout / setInterval)</h3>
+    <p>
+        - setTimeout : 지정한 시간이 지난 후 함수를 1회 실행 <br>
+        - setInterval : 지정한 시간 간격마다 함수를 반복 실행
+    </p>
+
+    <button onclick="timerTest();">2초 뒤 1회 실행</button>
+    <button onclick="startClock();">시계 시작</button>
+    <button onclick="stopClock();">시계 정지</button>
+    <div class="area" id="area1"></div>
+
+    <script>
+        function timerTest() {
+            console.log(" ---- timerTest 시작 ---- ");
+
+            // setTimeout(실행할함수, 밀리초) 
+            const timer = setTimeout(function() {
+
+                document.querySelector("#area1").style.backgroundColor = 'skyblue';
+
+            }, 2*1000);  // , 2000)
+
+            // 대기 중인 타이머 함수를 취소
+            // clearTimeout(timer);
+
+            console.log(" ---- timerTest 끝 ---- ");
+
+            // * 자바의 경우 흐름 방식 동기식 (작업이 진행되면 완전히 끝난 후 다음 작업을 실행)
+            //     자바스크립트의 경우 비동기 방식으로 타이머 작업이 끝날 때까지 멈추지 않고 바로 다음 작업이 실행
+        }
+
+        let timer2 = null;
+
+        function startClock() {
+
+            // setInterval(실행할함수, 밀리초)
+            timer2 = setInterval(function() {
+                // 현재 시간을 #area1 영역에 출력
+                const now = new Date();
+
+                const hours = now.getHours();
+                const minutes = now.getMinutes();
+                const seconds = now.getSeconds();
+
+                document.getElementById("area1").textContent =
+                    `${hours} : ${minutes} : ${seconds}`;
+            }, 1000);
+
+        }
+
+        function stopClock() {
+
+            // startClock 함수에서 실행시킨 타이머를 종료(해제)
+            clearInterval(timer2);
+
+        }
+    </script>
+
+
+    <h3>팝업창 열기/닫기</h3>
+    <h4>window.open()</h4>
+
+    <button onclick="openPopup();">네이버 팝업 열기</button>
+
+    <script>
+        function openPopup() {
+            // window.open(URL, 창이름, 옵션)
+
+            const popup = window.open("https://www.naver.com", 
+                        "naverPopup", 
+                        "width=500, height=500");
+
+            // 2초 후 팝업창 닫기 => setTimeout
+            setTimeout(function() {
+                // 팝업창 닫기 : 팝업창객체.close();
+                popup.close();
+            }, 2000);
+        }
+    </script>
+
+    <h3>주소창 제어 : location</h3>
+    <button onclick=" console.log(location); ">location 객체 확인</button>
+    <button onclick=" location.reload(); ">페이지 새로고침</button>
+    <button onclick=" location.href = 'https://www.naver.com'; ">페이지 이동(연결)</button>
+    <button onclick=" location.replace('https://www.naver.com'); ">페이지 이동(연결), 돌아가기 불가</button>
+
+    <h3>그 외 객체들 : history, screen, navigator</h3>
+    <button onclick=" history.back(); ">뒤로가기</button>
+    <button onclick=" console.log(screen); ">screen 객체 확인</button>
+    <button onclick=" console.log(navigator); ">navigator 객체 확인</button>
+</body>
+</html>

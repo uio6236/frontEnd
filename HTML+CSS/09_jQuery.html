@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>라이브러리 - jQuery</title>
+    <!-- jQuery CDN 연결 -->
+     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <style>
+        .area {
+            border: 10px groove slateblue;
+            width: 300px;
+            min-height: 50px;
+            padding: 8px;  /* 상하좌우 모두 8px */
+            margin: 8px 0; /* 상하 8px 좌우 0 */
+        }
+    </style>
+</head>
+<body>
+    <h1>jQuery</h1>
+    <script>
+        // 모든 요소가 로드되었을 때 : Load, DOMContentLoaded
+        // JavaScript (바닐라js)
+        /*
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log(" === DOM 로드 완료 === ");
+        });
+        */
+        // jQuery
+        $(function () {
+            console.log(" === DOM 로드 완료(jQuery) === ");
+        });
+    </script>
+    <h3>선택자와 스타일</h3>
+    <p class="txt">문단 1</p>
+    <p class="txt">문단 2</p>
+    <h5 id="css-box">제목 5</h5>
+    <button id="css-btn">스타일 변경</button>
+    <script>
+        $(function () {
+            // DOM 요소 선택(지정) : $(CSS선택자)
+            console.log($(".txt"));
+            console.log($("#css-box"));
+            // 이벤트 핸들러 등록(정의)
+            // $(CSS선택자).이벤트명(핸들러함수)
+
+            // [스타일 변경] 버튼 클릭 시 특정 요소의 스타일 변경
+            $("#css-btn").click(function() {
+                // p 태그의 글자색상, 글자크기 변경
+                // 스타일 변경 : $(CSS선택자).css(적용할 스타일)
+                $(".txt").css({
+                    "color": "pink",
+                    "font-size":"20px"
+                });
+                // h5 태그의 글자색상 변경
+                $("#css-box").css("color", "purple");
+            });
+        });
+    </script>
+    <h3>값 조작 - html / text / value</h3>
+    <div class="area" id="box"></div>
+    <input type="text" id="user-name" placeholder="이름 입력">
+    <button id="apply-btn">적용</button>
+    <script>
+        $(function(){
+            // [적용] 버튼 클릭 이벤트 핸들러 등록
+            // $("#apply-btn") => document.querySelector("#apply-btn")
+            $("#apply-btn").click(function() {
+                // 입력 요소의 값 : value
+                // => .val()
+                const name = $("#user-name").val();
+                // 특정 요소에 값을 출력 : textContent
+                // => .text()
+                $("#box").text(name);
+                // HTML 태그를 해석하여 출력 : innerHTML
+                // => .html()
+                $("#box").html("<strong>" + name + "</strong>");
+            });
+        });
+        // => 모든 DOM 요소가 로드되었을 때 실행 (onload)
+    </script>
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>
